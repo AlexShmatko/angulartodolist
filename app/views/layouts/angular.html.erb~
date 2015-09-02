@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="Todolist">
+<head>
+  <title>Angulartodolist</title>
+  <%= include_gon %>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <div id = "content">
+
+  <% flash.each do |message_type, message| %>
+    <div class="alert">
+      <div class="flash-<%= message_type %>"><%= message %></div>
+    </div>
+  <% end %>
+
+  <div id="user_header">
+    <% if current_user %>
+      <b><%= current_user.full_name %></b> |
+      <%= link_to "Log Out", logout_path("current"), method: 'delete' %><br />
+    <% else %>
+      <div class="links">
+         <%= link_to "Sign Up", signup_path %>
+       <br>
+         <%= link_to "Log In", login_path %>
+       <br>
+         <%= link_to "Forgot your password?", new_password_reset_path %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= yield %>
+  <div ng-view= "">
+  </div>
+
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<div ng-controller='TasksCtrl' class='tasks-container'>
+  <form ng-submit='addNewTask()'>
+    <input type='text' ng-model='newText.title'/>
+    <button type='submit' class='btn btn-default btn-sm'>
+      <span class='glyphicon glyphicon-plus'></span> Add
+    </button>
+  </form>
+
+  <div class='sorting'>
+    Sort by:
+    <span ng-click="sort('priority')">
+      Priority <span id='priority' class="glyphicon glyphicon-arrow-down active"></span>
+    </span> |
+    <span ng-click="sort('due_date')">
+      Due Date <span id='due_date' class="glyphicon glyphicon-arrow-down"></span>
+    </span>
+  </div>
+
+  <ul class='tasks'>
+    <li ng-repeat='task in tasks'>
+      <div class='action-links'>
+        <span class='glyphicon glyphicon-trash' ng-click='deleteTask(task)'></span>
+      </div>
+      <div class='chbx'>
+        <input type='checkbox' ng-click='complete(task)'/>
+      </div>
+      <div class='title' editable-text='task.title' buttons='no' onbeforesave="updateTitle($data, task)">
+        {{task.title}}
+      </div>
+      <div class='prioritydate'>
+        <div class='priority'>priority: </div>
+        <div class='priority' editable-text='task.priority' buttons='no' onbeforesave="updatePriority($data, task)">
+          {{task.priority || 'set priority'}}
+        </div>
+        <div class='due_date'>due date: </div>
+        <div class='priority' editable-text='task.due_date' onShow='updateDueDate(task)' blur='ignore' buttons='no'>
+          {{task.due_date || 'set a date'}}
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class='separator'>
+    <div class='title'> Completed </div>
+    <div class='line'></div>
+  </div>
+
+  <div class='separateline'></div>
+
+  <ul class='tasks completed'>
+    <li ng-repeat='task in completedTasks'>
+      <div class='chbx'>
+        <input type='checkbox' checked ng-click='restore(task)'/>
+      </div>
+      <div class='title editable editable-click'>{{task.title}}</div>
+    </li>
+  </ul>
+
+</div>

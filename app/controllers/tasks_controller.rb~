@@ -1,0 +1,54 @@
+class TasksController < ApplicationController
+  before_filter :authorize, only: [:edit, :new, :destroy, :index]
+  respond_to :json
+  skip_before_action :verify_authenticity_token
+
+  def index
+    gon.current_user = current_user.id
+  end
+
+  def show
+  end
+
+  def edit
+    @task = Task.find(params[:id])
+  end
+
+  def new
+  end
+
+  def create
+    if current_user.tasks.create(task_params)
+      @created = true
+    end
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  def update
+    @task = current_user.tasks.find(params[:id])
+    @task.update(task_params)
+    respond_with @task
+  end
+
+  def destroy
+    @task = current_user.tasks.find(params[:id])
+    respond_with @task.destroy
+  end
+
+  private
+
+  def task_params
+    params.require(:task).permit(:id, :title, :due_date, :priority, :complete)
+  end
+
+  def sort_column
+    params[:sort] || "id"
+  end
+
+  def sort_direction
+    params[:direction] || "asc"
+  end
+
+end
