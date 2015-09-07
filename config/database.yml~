@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: green_bull_test
+  database: angulartodolist_test
   pool: 5
   username: postgres
   password: password
