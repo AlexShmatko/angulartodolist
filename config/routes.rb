@@ -5,9 +5,8 @@ Rails.application.routes.draw do
   match '/logout', to: 'sessions#destroy', via: 'delete'
   match '/authenticate',  to: 'sessions#create', via: 'post'
 
-  resources :users do
-    resources :tasks
-  end
+  resources :tasks
+  resources :users
 
   resources :password_resets
 

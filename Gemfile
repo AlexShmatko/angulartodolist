@@ -30,14 +30,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
   gem 'rails_12factor', group: :production
 
 group :development, :test do
+  gem 'shoulda-matchers'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'pry'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails'  
   gem 'factory_girl_rails'  
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'faker'
+  gem 'rspec-collection_matchers'
 end
 

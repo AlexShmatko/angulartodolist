@@ -7,19 +7,15 @@ app.run(function(editableOptions) {
 app.controller('TasksCtrl', [
   '$scope', 'Task', function($scope, Task) {
 
-    $scope.user = gon.current_user
-
     $scope.updateTitle = function(data, task) {
       Task.update({
-        user_id: $scope.user.id,
         id: task.id,
         title: data
       });
     };
 
-    $scope.updatePriority = function(data, task){
+    $scope.updatePriority = function(data, task) {
       Task.update({
-        user_id: $scope.user.id,
         id: task.id,
         priority: data
       })
@@ -32,7 +28,6 @@ app.controller('TasksCtrl', [
         onSelect: function(date, instance) {
           task.due_date = date;
           Task.update({
-            user_id: $scope.user.id,
             id: task.id
           }, {
             due_date: date
@@ -43,26 +38,24 @@ app.controller('TasksCtrl', [
     };
 
     $scope.tasks = Task.query({
-      user_id: $scope.user.id,
       status: 'incompleted'
     });
 
     $scope.completedTasks = Task.query({
-      user_id: $scope.user.id,
       status: 'completed'
     });
 
     $scope.addNewTask = function() {
-      var task = Task.save({user_id: $scope.user.id}, ($scope.newText));
+      var task = Task.save($scope.newText);
       $scope.tasks.push(task);
       $scope.newText = {};
     };
 
-    $scope.deleteTask = function(task){
+    $scope.deleteTask = function(task) {
       if (confirm('Are you sure')) {
         var index = $scope.tasks.indexOf(task);
-        Task.delete({ user_id: $scope.user.id, id: task.id },
-          function(success){
+        Task.delete({ id: task.id },
+          function(success) {
             $scope.tasks.splice(index, 1);
         });
       }
@@ -70,7 +63,6 @@ app.controller('TasksCtrl', [
 
     $scope.complete = function(task) {
       Task.update({
-        user_id: $scope.user.id,
         id: task.id,
         task: {
           completed: true
@@ -85,7 +77,6 @@ app.controller('TasksCtrl', [
 
     $scope.restore = function(task) {
       Task.update({
-        user_id: $scope.user.id,
         id: task.id,
         task: {
           completed: false
@@ -113,7 +104,6 @@ app.controller('TasksCtrl', [
         direction = 'asc';
       }
       $scope.tasks = Task.query({
-        user_id: $scope.user.id,
         status: 'incompleted',
         order_by: property,
         direction: direction
