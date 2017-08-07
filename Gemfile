@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
+# Use Uglifier as compressor for JavsaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
@@ -34,11 +34,10 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'pry'
-  gem 'rspec-rails'  
-  gem 'factory_girl_rails'  
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'shoulda-matchers'
   gem 'faker'
   gem 'rspec-collection_matchers'
 end
-
